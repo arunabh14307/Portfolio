@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Portfolio</title>
+  <link rel="stylesheet" href="/static/css/admin.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ════════════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">🚀 Admin Panel</div>
+    <div class="logo-sub">Portfolio Dashboard</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group-label">Overview</div>
+    <div class="sidebar-item active" data-panel="overview"><span class="sidebar-icon">📊</span> Overview</div>
+
+    <div class="nav-group-label">Content</div>
+    <div class="sidebar-item" data-panel="profile">  <span class="sidebar-icon">👤</span> Profile</div>
+    <div class="sidebar-item" data-panel="skills">   <span class="sidebar-icon">⚡</span> Skills</div>
+    <div class="sidebar-item" data-panel="projects"> <span class="sidebar-icon">💻</span> Projects</div>
+    <div class="sidebar-item" data-panel="certs">    <span class="sidebar-icon">🏅</span> Certificates</div>
+    <div class="sidebar-item" data-panel="achievements"><span class="sidebar-icon">🏆</span> Achievements</div>
+    <div class="sidebar-item" data-panel="testimonials"><span class="sidebar-icon">💬</span> Testimonials</div>
+    <div class="nav-group-label">Engagement</div>
+    <div class="sidebar-item" data-panel="messages">
+      <span class="sidebar-icon">📬</span> Messages
+      <span class="badge-count" id="msg-badge">0</span>
+    </div>
+    <div class="sidebar-item" data-panel="analytics"><span class="sidebar-icon">📈</span> Analytics</div>
+
+    <div class="nav-group-label">Settings</div>
+    <div class="sidebar-item" data-panel="resume">   <span class="sidebar-icon">📄</span> Resume</div>
+    <div class="sidebar-item" data-panel="activity"> <span class="sidebar-icon">📋</span> Activity Log</div>
+    <div class="sidebar-item" data-panel="settings"> <span class="sidebar-icon">⚙️</span> Settings</div>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">A</div>
+      <div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Portfolio Owner</div></div>
+    </div>
+    <a href="/admin/logout"><button class="btn-logout">🚪 Logout</button></a>
+  </div>
+</aside>
+
+<!-- ══ MAIN CONTENT ═══════════════════════════════════════════ -->
+<div class="main-content">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:1rem">
+      <button class="topbar-menu-btn" id="menu-btn">☰</button>
+      <div class="topbar-title" id="topbar-title">Overview</div>
+    </div>
+    <div class="topbar-actions">
+      <a href="/" target="_blank" class="btn btn-secondary btn-sm">👁 View Site</a>
+    </div>
+  </div>
+
+  <div class="content-area">
+    <div id="alert-global" class="alert"></div>
+
+    <!-- ══ OVERVIEW ═══════════════════════════════════════════ -->
+    <div class="panel active" id="panel-overview">
+      <div class="stats-row" id="stats-row">
+        <div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-num" id="stat-visits">-</div><div class="stat-label">Total Visits</div></div></div>
+        <div class="stat-card"><div class="stat-icon blue">💻</div><div><div class="stat-num" id="stat-projects">-</div><div class="stat-label">Projects</div></div></div>
+        <div class="stat-card"><div class="stat-icon green">⚡</div><div><div class="stat-num" id="stat-skills">-</div><div class="stat-label">Skills</div></div></div>
+        <div class="stat-card"><div class="stat-icon pink">📬</div><div><div class="stat-num" id="stat-messages">-</div><div class="stat-label">Messages</div></div></div>
+        <div class="stat-card"><div class="stat-icon purple">🏅</div><div><div class="stat-num" id="stat-certs">-</div><div class="stat-label">Certificates</div></div></div>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-title">Visitor Traffic (Last 30 Days)</div>
+        <canvas id="overviewChart" height="80"></canvas>
+      </div>
+    </div>
+
+    <!-- ══ PROFILE ════════════════════════════════════════════ -->
+    <div class="panel" id="panel-profile">
+      <div class="panel-header"><h2>👤 Profile</h2></div>
+      <div class="admin-card">
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
+          <div class="profile-photo-preview" id="profile-photo-preview">AS</div>
+          <div>
+            <label class="btn btn-secondary btn-sm" style="cursor:pointer">
+              📷 Change Photo <input type="file" id="profile-photo-input" accept="image/*" hidden />
+            </label>
+            <p style="font-size:.75rem;color:var(--text-2);margin-top:.4rem">JPG, PNG or WebP. Max 5MB.</p>
+          </div>
+        </div>
+        <form class="admin-form" id="profile-form">
+          <div class="form-row">
+            <div class="form-group"><label>Full Name</label><input id="pf-name" type="text" /></div>
+            <div class="form-group"><label>Professional Title</label><input id="pf-title" type="text" /></div>
+          </div>
+          <div class="form-group"><label>Short Bio (shown on Hero)</label><textarea id="pf-bio" rows="2"></textarea></div>
+          <div class="form-group"><label>About Me (detailed)</label><textarea id="pf-about" rows="4"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label>College / University</label><input id="pf-college" type="text" /></div>
+            <div class="form-group"><label>Course / Degree</label><input id="pf-course" type="text" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Year</label><input id="pf-year" type="text" /></div>
+            <div class="form-group"><label>Career Goal</label><input id="pf-goal" type="text" /></div>
+          </div>
+          <div class="form-group"><label>Interests</label><input id="pf-interests" type="text" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input id="pf-email" type="email" /></div>
+            <div class="form-group"><label>Phone</label><input id="pf-phone" type="text" /></div>
+          </div>
+          <div class="form-group"><label>Location</label><input id="pf-location" type="text" /></div>
+          <div class="form-row">
+            <div class="form-group"><label>GitHub URL</label><input id="pf-github" type="url" /></div>
+            <div class="form-group"><label>LinkedIn URL</label><input id="pf-linkedin" type="url" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>LeetCode URL</label><input id="pf-leetcode" type="url" /></div>
+            <div class="form-group"><label>HackerRank URL</label><input id="pf-hackerrank" type="url" /></div>
+          </div>
+          <div class="form-group"><label>Codeforces URL</label><input id="pf-codeforces" type="url" /></div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+            <button type="submit" class="btn btn-primary">💾 Save Profile</button>
+            <a href="/" target="_blank" class="btn btn-secondary">👁 Preview</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ SKILLS ════════════════════════════════════════════ -->
+    <div class="panel" id="panel-skills">
+      <div class="panel-header">
+        <h2>⚡ Skills</h2>
+        <button class="btn btn-primary" id="add-skill-btn">+ Add Skill</button>
+      </div>
+      <div class="card-grid" id="skills-admin-grid">Loading...</div>
+    </div>
+
+    <!-- ══ PROJECTS ══════════════════════════════════════════ -->
+    <div class="panel" id="panel-projects">
+      <div class="panel-header">
+        <h2>💻 Projects</h2>
+        <button class="btn btn-primary" id="add-project-btn">+ Add Project</button>
+      </div>
+      <div class="card-grid" id="projects-admin-grid">Loading...</div>
+    </div>
+
+    <!-- ══ CERTIFICATES ══════════════════════════════════════ -->
+    <div class="panel" id="panel-certs">
+      <div class="panel-header">
+        <h2>🏅 Certificates</h2>
+        <button class="btn btn-primary" id="add-cert-btn">+ Add Certificate</button>
+      </div>
+      <div class="card-grid" id="certs-admin-grid">Loading...</div>
+    </div>
+
+    <!-- ══ ACHIEVEMENTS ══════════════════════════════════════ -->
+    <div class="panel" id="panel-achievements">
+      <div class="panel-header">
+        <h2>🏆 Achievements</h2>
+        <button class="btn btn-primary" id="add-ach-btn">+ Add Achievement</button>
+      </div>
+      <div class="card-grid" id="ach-admin-grid">Loading...</div>
+    </div>
+
+    <!-- ══ TESTIMONIALS ══════════════════════════════════════ -->
+    <div class="panel" id="panel-testimonials">
+      <div class="panel-header">
+        <h2>💬 Testimonials</h2>
+        <button class="btn btn-primary" id="add-test-btn">+ Add Testimonial</button>
+      </div>
+      <div class="card-grid" id="test-admin-grid">Loading...</div>
+    </div>
+
+
+    <!-- ══ MESSAGES ══════════════════════════════════════════ -->
+    <div class="panel" id="panel-messages">
+      <div class="panel-header"><h2>📬 Messages</h2></div>
+      <div id="messages-list">Loading...</div>
+    </div>
+
+    <!-- ══ ANALYTICS ═════════════════════════════════════════ -->
+    <div class="panel" id="panel-analytics">
+      <div class="panel-header"><h2>📈 Analytics</h2></div>
+      <div class="stats-row" id="analytics-stats"></div>
+      <div class="chart-wrap">
+        <div class="chart-title">Daily Visits (Last 30 Days)</div>
+        <canvas id="analyticsChart" height="80"></canvas>
+      </div>
+      <div class="admin-card">
+        <div class="chart-title">Top Pages</div>
+        <div id="top-pages-list"></div>
+      </div>
+    </div>
+
+    <!-- ══ RESUME ════════════════════════════════════════════ -->
+    <div class="panel" id="panel-resume">
+      <div class="panel-header"><h2>📄 Resume</h2></div>
+      <div class="admin-card">
+        <p style="color:var(--text-2);margin-bottom:1.25rem">Upload your resume (PDF). Visitors can download it from the portfolio.</p>
+        <div class="upload-area" id="resume-drop" onclick="document.getElementById('resume-file-input').click()">
+          📁 Click to upload resume (PDF, DOC, DOCX)
+          <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx" />
+        </div>
+        <div id="resume-status" style="margin-top:1rem;font-size:.88rem;color:var(--text-2)"></div>
+        <div style="margin-top:1.5rem;display:flex;gap:.75rem">
+          <a href="/resume/download" target="_blank" class="btn btn-secondary btn-sm">⬇️ Download Current</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- ══ ACTIVITY LOG ═══════════════════════════════════════ -->
+    <div class="panel" id="panel-activity">
+      <div class="panel-header"><h2>📋 Activity Log</h2></div>
+      <div class="admin-card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Action</th><th>Details</th><th>Timestamp</th></tr></thead>
+            <tbody id="activity-table-body">Loading...</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SETTINGS ══════════════════════════════════════════ -->
+    <div class="panel" id="panel-settings">
+      <div class="panel-header"><h2>⚙️ Settings</h2></div>
+      <div class="admin-card">
+        <h3 style="margin-bottom:1rem;font-size:1rem">Change Password</h3>
+        <form class="admin-form" id="pw-form" style="max-width:400px">
+          <div class="form-group"><label>Current Password</label><input id="pw-current" type="password" /></div>
+          <div class="form-group"><label>New Password</label><input id="pw-new" type="password" /></div>
+          <div class="form-group"><label>Confirm New Password</label><input id="pw-confirm" type="password" /></div>
+          <div id="pw-alert" class="alert"></div>
+          <button type="submit" class="btn btn-primary">🔑 Update Password</button>
+        </form>
+      </div>
+    </div>
+
+  </div><!-- /content-area -->
+</div><!-- /main-content -->
+
+<!-- ══ MODALS ═════════════════════════════════════════════════ -->
+
+<!-- Skill Modal -->
+<div class="modal-overlay" id="skill-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="skill-modal">✕</button>
+    <h3 id="skill-modal-title">Add Skill</h3>
+    <form class="admin-form" id="skill-form">
+      <input type="hidden" id="skill-id" />
+      <div class="form-row">
+        <div class="form-group"><label>Skill Name</label><input id="sk-name" type="text" required /></div>
+        <div class="form-group"><label>Category</label><input id="sk-cat" type="text" placeholder="e.g. Backend" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Icon (emoji or image)</label>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+             <input id="sk-icon" type="text" placeholder="⚡ or image URL" style="flex:1" />
+             <label class="btn btn-secondary btn-sm" style="cursor:pointer;white-space:nowrap;margin-bottom:0">
+               📷 <input type="file" id="sk-img-file" accept="image/*" hidden />
+             </label>
+          </div>
+          <img id="sk-img-preview" style="margin-top:.5rem;max-height:40px;display:none" />
+        </div>
+        <div class="form-group"><label>Description</label><input id="sk-desc" type="text" placeholder="Short description" /></div>
+      </div>
+      <div class="form-group">
+        <label>Level</label>
+        <select id="sk-level">
+          <option value="1">1 — Learning Stage</option>
+          <option value="2" selected>2 — Basic</option>
+          <option value="3">3 — Intermediate</option>
+          <option value="4">4 — Professional</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Progress — <span id="sk-pct-label">50</span>%</label>
+        <div class="range-wrap">
+          <input type="range" id="sk-pct" min="0" max="100" value="50"
+                 oninput="document.getElementById('sk-pct-label').textContent=this.value" />
+          <span class="range-val" id="sk-pct-show">50%</span>
+        </div>
+      </div>
+      <div class="form-group"><label>Progress Note (optional)</label><input id="sk-note" type="text" placeholder="e.g. Completed advanced course" /></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close="skill-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="skill-submit-btn">Save Skill</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Project Modal -->
+<div class="modal-overlay" id="project-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="project-modal">✕</button>
+    <h3 id="project-modal-title">Add Project</h3>
+    <form class="admin-form" id="project-form">
+      <input type="hidden" id="project-id" />
+      <div class="form-group"><label>Title</label><input id="pj-title" type="text" required /></div>
+      <div class="form-group"><label>Description</label><textarea id="pj-desc" rows="3"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Technologies (comma-separated)</label><input id="pj-tech" type="text" /></div>
+        <div class="form-group"><label>Category</label><input id="pj-cat" type="text" placeholder="Web Development" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Difficulty</label>
+          <select id="pj-diff">
+            <option>Beginner</option><option selected>Intermediate</option><option>Advanced</option>
+          </select>
+        </div>
+        <div class="form-group" style="justify-content:flex-end">
+          <label>&nbsp;</label>
+          <div class="toggle-wrap">
+            <label class="toggle"><input type="checkbox" id="pj-featured" /><span class="toggle-slider"></span></label>
+            <span style="font-size:.85rem">Featured</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>GitHub Link</label><input id="pj-github" type="url" /></div>
+        <div class="form-group"><label>Live Demo Link</label><input id="pj-demo" type="url" /></div>
+      </div>
+      <div class="form-group"><label>Video Link</label><input id="pj-video" type="url" /></div>
+      <div class="form-group">
+        <label>Project Image</label>
+        <label class="btn btn-secondary btn-sm" style="cursor:pointer;width:fit-content">
+          📷 Upload Image <input type="file" id="pj-img-file" accept="image/*" hidden />
+        </label>
+        <input id="pj-img" type="text" placeholder="Or paste image URL" style="margin-top:.5rem" />
+        <img id="pj-img-preview" style="margin-top:.5rem;max-height:100px;border-radius:8px;display:none" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close="project-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Project</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="modal-overlay" id="cert-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="cert-modal">✕</button>
+    <h3 id="cert-modal-title">Add Certificate</h3>
+    <form class="admin-form" id="cert-form">
+      <input type="hidden" id="cert-id" />
+      <div class="form-row">
+        <div class="form-group"><label>Certificate Name</label><input id="ct-name" type="text" required /></div>
+        <div class="form-group"><label>Organization</label><input id="ct-org" type="text" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input id="ct-date" type="text" placeholder="June 2024" /></div>
+        <div class="form-group"><label>Verify Link</label><input id="ct-verify" type="url" /></div>
+      </div>
+      <div class="form-group">
+        <label>Certificate Image</label>
+        <label class="btn btn-secondary btn-sm" style="cursor:pointer;width:fit-content">
+          📷 Upload <input type="file" id="ct-img-file" accept="image/*,.pdf" hidden />
+        </label>
+        <input id="ct-img" type="text" placeholder="Or paste image URL" style="margin-top:.5rem" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close="cert-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Certificate</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Achievement Modal -->
+<div class="modal-overlay" id="ach-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="ach-modal">✕</button>
+    <h3 id="ach-modal-title">Add Achievement</h3>
+    <form class="admin-form" id="ach-form">
+      <input type="hidden" id="ach-id" />
+      <div class="form-row">
+        <div class="form-group"><label>Title</label><input id="ac-title" type="text" required /></div>
+        <div class="form-group"><label>Icon (emoji)</label><input id="ac-icon" type="text" placeholder="🏆" /></div>
+      </div>
+      <div class="form-group"><label>Description</label><textarea id="ac-desc" rows="2"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input id="ac-date" type="text" placeholder="2024" /></div>
+        <div class="form-group"><label>Category</label><input id="ac-cat" type="text" placeholder="Academic" /></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close="ach-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Achievement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Testimonial Modal -->
+<div class="modal-overlay" id="test-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="test-modal">✕</button>
+    <h3 id="test-modal-title">Add Testimonial</h3>
+    <form class="admin-form" id="test-form">
+      <input type="hidden" id="test-id" />
+      <div class="form-row">
+        <div class="form-group"><label>Name</label><input id="ts-name" type="text" required /></div>
+        <div class="form-group"><label>Role / Position</label><input id="ts-role" type="text" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Organization</label><input id="ts-org" type="text" /></div>
+        <div class="form-group">
+          <label>Rating</label>
+          <select id="ts-rating">
+            <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            <option value="4">⭐⭐⭐⭐ 4</option>
+            <option value="3">⭐⭐⭐ 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Testimonial</label><textarea id="ts-content" rows="3"></textarea></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close="test-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Testimonial</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

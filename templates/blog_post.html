@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post — Portfolio</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <style>
+    .blog-post-hero{padding:8rem 0 3rem;background:var(--bg-2)}
+    .post-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+    .post-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:1rem;line-height:1.25}
+    .post-meta{display:flex;gap:1.5rem;color:var(--text-muted);font-size:.9rem;margin-bottom:2rem;flex-wrap:wrap}
+    .post-content{max-width:780px;margin:0 auto;padding:3rem 1.5rem}
+    .post-content h2,.post-content h3{margin:2rem 0 1rem;color:var(--text)}
+    .post-content p{color:var(--text-muted);line-height:1.9;margin-bottom:1.25rem}
+    .post-content pre{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;overflow-x:auto;margin-bottom:1.25rem}
+    .post-content code{font-family:'Fira Code',monospace;font-size:.88rem;color:#a78bfa}
+    .post-content ul,.post-content ol{color:var(--text-muted);margin-left:1.5rem;margin-bottom:1.25rem;line-height:1.9}
+    .post-content a{color:var(--accent)}
+    .back-btn{margin-bottom:2rem}
+    .share-section{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem;text-align:center}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="/#home">Home</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/#blog">Blog</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</nav>
+
+<section class="blog-post-hero">
+  <div class="container" style="max-width:780px">
+    <a href="/#blog" class="btn btn-outline btn-sm back-btn" style="display:inline-flex">← Back to Blog</a>
+    <div class="post-tags">
+      {% if post.tags %}
+        {% for tag in post.tags.split(',') %}
+          {% if tag.strip() %}<span class="tag">{{ tag.strip() }}</span>{% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <h1 class="post-title">{{ post.title }}</h1>
+    <div class="post-meta">
+      <span>📅 {{ post.publish_date[:10] if post.publish_date else '' }}</span>
+      <span>📖 {{ (post.content | length // 200) + 1 }} min read</span>
+    </div>
+  </div>
+</section>
+
+<article class="post-content">
+  {{ post.content | safe }}
+
+  <div class="share-section">
+    <p style="color:var(--text-muted);margin-bottom:1rem">Enjoyed this article? Share it!</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="https://twitter.com/intent/tweet?text={{ post.title | urlencode }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">🐦 Twitter</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url | urlencode }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">💼 LinkedIn</a>
+    </div>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer-copy">Made with <span>♥</span> · <a href="/" style="color:var(--text-muted)">Back to Portfolio</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const saved = localStorage.getItem('portfolio-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-icon').textContent = saved==='dark'?'☀️':'🌙';
+  document.getElementById('theme-toggle').addEventListener('click',()=>{
+    const curr=document.documentElement.getAttribute('data-theme');
+    const next=curr==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    localStorage.setItem('portfolio-theme',next);
+    document.getElementById('theme-icon').textContent=next==='dark'?'☀️':'🌙';
+  });
+  if(window.AOS) AOS.init({duration:700,once:true});
+})();
+</script>
+</body>
+</html>

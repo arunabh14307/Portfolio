@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Portfolio</title>
+  <meta name="description" id="meta-desc" content="Personal Portfolio Website" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+
+  <!-- Google Fonts (fallback already in CSS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.js" defer></script>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo" id="nav-logo">AS</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certs</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
+        <span id="theme-icon">🌙</span>
+      </button>
+      <div class="hamburger" id="hamburger" role="button" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Open to Opportunities</div>
+      <h1 class="hero-name">Hi, I'm <br><span class="gradient-text" id="hero-name">Arunabh Singh</span></h1>
+      <p class="hero-title" id="hero-typed-wrap">
+        <span id="typed-el"></span>
+      </p>
+      <p class="hero-bio" id="hero-bio">Welcome to my portfolio! I am a passionate developer.</p>
+      <div class="hero-actions">
+        <a href="/resume/download" class="btn btn-primary" id="btn-download-resume">📄 Download Resume</a>
+        <a href="#contact" class="btn btn-outline">✉ Contact Me</a>
+      </div>
+      <div class="hero-social" id="hero-social">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <div class="hero-image-wrap">
+      <div class="hero-photo-container" id="hero-photo-container">
+        <div class="hero-photo-ring"></div>
+        <div class="hero-photo-ring-2"></div>
+        <div class="hero-photo-placeholder" id="hero-photo">AS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ═══════════════════════════════════════════════════ -->
+<section class="section section-alt" id="about">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>About Me</h2>
+      <div class="title-line"></div>
+      <p>Learn a bit more about me and my journey</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text" data-aos="fade-right">
+        <p id="about-desc">Loading...</p>
+        <div class="about-info" id="about-info">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <h3 style="margin-bottom:1.5rem;color:var(--text);">Learning Journey</h3>
+        <div class="timeline" id="timeline">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══════════════════════════════════════════════════ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Skills & Expertise</h2>
+      <div class="title-line"></div>
+      <p>Tools and technologies I work with</p>
+    </div>
+
+    <div class="skills-grid" id="skills-grid" data-aos="fade-up">
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ══ PROJECTS ════════════════════════════════════════════════ -->
+<section class="section section-alt" id="projects">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>My Projects</h2>
+      <div class="title-line"></div>
+      <p>Things I've built and am proud of</p>
+    </div>
+
+    <!-- Search -->
+    <div class="project-search-wrap" data-aos="fade-up">
+      <input type="text" class="project-search" id="project-search" placeholder="🔍 Search projects…" aria-label="Search projects" />
+    </div>
+
+    <!-- Filters -->
+    <div class="project-filters" id="project-filters" data-aos="fade-up">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <!-- Dynamic filters added by JS -->
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      <div class="loading-spinner" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATES ════════════════════════════════════════════ -->
+<section class="section" id="certificates">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Certificates</h2>
+      <div class="title-line"></div>
+      <p>Credentials and certifications I've earned</p>
+    </div>
+    <div class="certs-grid" id="certs-grid" data-aos="fade-up">
+      <div class="loading-spinner" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <img class="lightbox-content" id="lightbox-img" src="" alt="Certificate" />
+</div>
+
+<!-- ══ ACHIEVEMENTS ════════════════════════════════════════════ -->
+<section class="section section-alt" id="achievements">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Achievements & Badges</h2>
+      <div class="title-line"></div>
+      <p>Milestones, awards, and recognitions</p>
+    </div>
+    <div class="achievements-grid" id="achievements-grid" data-aos="fade-up">
+      <div class="loading-spinner" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ TESTIMONIALS ════════════════════════════════════════════ -->
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Testimonials</h2>
+      <div class="title-line"></div>
+      <p>What others say about working with me</p>
+    </div>
+    <div class="testimonials-carousel" data-aos="fade-up">
+      <div class="testimonials-track" id="testimonials-track">
+        <!-- Populated by JS -->
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="carousel-prev" aria-label="Previous">◀</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+        <button class="carousel-btn" id="carousel-next" aria-label="Next">▶</button>
+      </div>
+    </div>
+    </div>
+
+    <!-- Leave a Review Form -->
+    <div class="leave-review-wrap" data-aos="fade-up" style="margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <h3 style="text-align:center; margin-bottom: 2rem;">Leave a Review</h3>
+      <form class="contact-form" id="review-form" style="grid-template-columns: 1fr;">
+        <div class="form-group">
+          <label for="review-name">Your Name</label>
+          <input type="text" id="review-name" placeholder="John Doe" required />
+        </div>
+        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div>
+            <label for="review-role">Role / Relationship</label>
+            <input type="text" id="review-role" placeholder="Client, Colleague..." required />
+          </div>
+          <div>
+            <label for="review-rating">Rating (1-5)</label>
+            <input type="number" id="review-rating" min="1" max="5" value="5" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="review-msg">Review Message</label>
+          <textarea id="review-msg" rows="4" placeholder="Your experience working with me..." required></textarea>
+        </div>
+        <div class="form-msg" id="review-form-msg"></div>
+        <button type="submit" class="btn btn-outline" id="review-submit" style="justify-self: center;">Submit Review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ═════════════════════════════════════════════════ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Get In Touch</h2>
+      <div class="title-line"></div>
+      <p>Feel free to reach out — I'd love to hear from you!</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info" id="contact-info" data-aos="fade-right">
+        <!-- Populated by JS -->
+      </div>
+      <form class="contact-form" id="contact-form" data-aos="fade-left">
+        <div class="form-group">
+          <label for="contact-name">Your Name</label>
+          <input type="text" id="contact-name" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email Address</label>
+          <input type="email" id="contact-email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="contact-msg">Message</label>
+          <textarea id="contact-msg" rows="5" placeholder="Your message here…" required></textarea>
+        </div>
+        <div class="form-msg" id="form-msg"></div>
+        <button type="submit" class="btn btn-primary" id="contact-submit">✉ Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-social" id="footer-social">
+      <!-- Populated by JS -->
+    </div>
+    <p class="footer-copy">
+      Made by <span id="footer-name">Arunabh Singh</span>
+    </p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to Top">↑</button>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
