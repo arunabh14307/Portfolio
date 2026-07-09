@@ -137,6 +137,8 @@ async function loadProfile() {
     { label: '🎓 College', value: p.college },
     { label: '📚 Course',  value: p.course },
     { label: '📅 Year',    value: p.year },
+    { label: '📧 Email',   value: p.email },
+    { label: '📞 Phone',   value: p.phone },
     { label: '📍 Location',value: p.location },
   ];
   $('about-info').innerHTML = infoItems
@@ -160,6 +162,8 @@ async function loadProfile() {
 
   // Contact info
   const contactItems = [
+    { icon: '📧', label: 'Email', value: p.email, href: `mailto:${p.email}` },
+    { icon: '📞', label: 'Phone', value: p.phone, href: `tel:${p.phone}` },
     { icon: '📍', label: 'Location', value: p.location, href: null },
     { icon: '💼', label: 'LinkedIn', value: p.linkedin ? 'Connect on LinkedIn' : null, href: p.linkedin },
     { icon: '🐱', label: 'GitHub', value: p.github ? 'Follow on GitHub' : null, href: p.github },
