@@ -325,24 +325,36 @@ async function loadCertificates() {
     return;
   }
   grid.innerHTML = certs.map(c => {
-    const hasFile = c.file_path || c.image;
     const hasImage = c.image && !c.image.toLowerCase().endsWith('.pdf');
+    const hasFile  = c.file_path || c.image;
+
+    // Preview button: lightbox for stored images, verify_link as fallback, disabled if neither
+    let previewBtn = '';
+    if (hasImage) {
+      previewBtn = `<button class="btn btn-outline btn-sm" onclick="openLightbox('${esc(c.image)}')">👁 Preview</button>`;
+    } else if (c.verify_link) {
+      previewBtn = `<a href="${esc(c.verify_link)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">👁 Preview</a>`;
+    } else if (c.file_path) {
+      previewBtn = `<a href="/certificates/${c.id}/preview" target="_blank" class="btn btn-outline btn-sm">👁 Preview</a>`;
+    } else {
+      previewBtn = `<button class="btn btn-outline btn-sm" style="opacity:.4;cursor:default" disabled>👁 Preview</button>`;
+    }
+
     return `
-    <div class="card cert-card">
-      <div class="cert-img-wrap" style="cursor:${hasImage?'pointer':'default'}" onclick="${hasImage?`openLightbox('${esc(c.image)}')`:'void(0)'}">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:cover;" />` : '<span style="font-size:3rem">🏅</span>'}
+    <div class="card cert-card" data-aos="fade-up">
+      <div class="cert-img-wrap" style="cursor:${hasImage?'pointer':'default'}"
+           onclick="${hasImage ? `openLightbox('${esc(c.image)}')` : 'void(0)'}">
+        ${c.image
+          ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:cover;" />`
+          : '<span style="font-size:3rem">🏅</span>'}
       </div>
       <div class="cert-body">
         <div class="cert-org">${esc(c.organization)}</div>
         <div class="cert-name">${esc(c.name)}</div>
         <div class="cert-date">${esc(c.date)}</div>
         <div class="cert-actions" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem">
-          ${hasImage
-            ? `<button class="btn btn-outline btn-sm" onclick="openLightbox('${esc(c.image)}')">👁 Preview</button>`
-            : (c.file_path ? `<a href="/certificates/${c.id}/preview" target="_blank" class="btn btn-outline btn-sm">👁 Preview</a>` : '')}
-          ${hasFile
-            ? `<a href="/certificates/${c.id}/download" class="btn btn-primary btn-sm" download>⬇ Download</a>`
-            : ''}
+          ${previewBtn}
+          ${hasFile ? `<a href="/certificates/${c.id}/download" class="btn btn-primary btn-sm" download>⬇ Download</a>` : ''}
           ${c.verify_link ? `<a href="${esc(c.verify_link)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🔗 Verify</a>` : ''}
         </div>
       </div>
