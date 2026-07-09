@@ -354,7 +354,6 @@ async function loadCertificates() {
         <div class="cert-date">${esc(c.date)}</div>
         <div class="cert-actions" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem">
           ${previewBtn}
-          ${hasFile ? `<a href="/certificates/${c.id}/download" class="btn btn-primary btn-sm" download>⬇ Download</a>` : ''}
         </div>
       </div>
     </div>`;
