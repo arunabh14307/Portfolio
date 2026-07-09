@@ -51,19 +51,23 @@ def rows_to_list(rows):
 
 @app.route('/')
 def index():
-    db = get_db()
-    # Record analytics
-    today = datetime.now().strftime('%Y-%m-%d')
-    ip_hash = get_ip_hash()
-    # One unique visit per IP per day per page
-    existing = db.execute(
-        "SELECT id FROM analytics WHERE visit_date=? AND page=? AND ip_hash=?",
-        (today, '/', ip_hash)).fetchone()
-    if not existing:
-        db.execute("INSERT INTO analytics (visit_date, page, ip_hash) VALUES (?,?,?)",
-                   (today, '/', ip_hash))
-        db.commit()
-    db.close()
+    try:
+        db = get_db()
+        # Record analytics
+        today = datetime.now().strftime('%Y-%m-%d')
+        ip_hash = get_ip_hash()
+        # One unique visit per IP per day per page
+        existing = db.execute(
+            "SELECT id FROM analytics WHERE visit_date=? AND page=? AND ip_hash=?",
+            (today, '/', ip_hash)).fetchone()
+        if not existing:
+            db.execute("INSERT INTO analytics (visit_date, page, ip_hash) VALUES (?,?,?)",
+                       (today, '/', ip_hash))
+            db.commit()
+        db.close()
+    except Exception:
+        # Analytics writes fail silently on Vercel (read-only filesystem)
+        pass
     return render_template('index.html')
 
 

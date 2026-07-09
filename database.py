@@ -3,7 +3,9 @@ import os
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 
-DB_PATH = os.path.join(os.path.dirname(__file__), 'portfolio.db')
+# On Vercel the filesystem is read-only; DB lives in the same dir as this file.
+# We resolve to an absolute path so it works both locally and on Vercel.
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'portfolio.db')
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
@@ -251,8 +253,13 @@ def init_db():
     conn.close()
 
 def log_activity(action, details=''):
-    conn = get_db()
-    conn.execute("INSERT INTO activity_log (action, details, timestamp) VALUES (?, ?, ?)",
-                 (action, details, datetime.now().isoformat()))
-    conn.commit()
-    conn.close()
+    try:
+        conn = get_db()
+        conn.execute("INSERT INTO activity_log (action, details, timestamp) VALUES (?, ?, ?)",
+                     (action, details, datetime.now().isoformat()))
+        conn.commit()
+        conn.close()
+    except Exception:
+        # Vercel has a read-only filesystem; writes will fail silently so
+        # the public portfolio page remains accessible.
+        pass
