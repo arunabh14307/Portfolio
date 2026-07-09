@@ -484,4 +484,36 @@ function initAOS() {
   ]);
 
   initAOS();
+
+  // Star Rating Logic
+  const starRating = document.getElementById('star-rating-input');
+  if (starRating) {
+    const stars = starRating.querySelectorAll('.star');
+    const ratingInput = document.getElementById('review-rating');
+
+    const updateStars = (value) => {
+      stars.forEach(s => {
+        if (parseInt(s.getAttribute('data-value')) <= value) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    };
+
+    stars.forEach(star => {
+      star.addEventListener('mouseover', function() {
+        updateStars(parseInt(this.getAttribute('data-value')));
+      });
+      
+      star.addEventListener('mouseout', function() {
+        updateStars(parseInt(ratingInput.value));
+      });
+      
+      star.addEventListener('click', function() {
+        ratingInput.value = this.getAttribute('data-value');
+        updateStars(parseInt(ratingInput.value));
+      });
+    });
+  }
 })();

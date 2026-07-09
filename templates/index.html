@@ -225,8 +225,15 @@
             <input type="text" name="role" id="review-role" placeholder="Client, Colleague..." required />
           </div>
           <div>
-            <label for="review-rating">Rating (1-5)</label>
-            <input type="number" name="rating" id="review-rating" min="1" max="5" value="5" required />
+            <label>Rating</label>
+            <div class="star-rating-input" id="star-rating-input">
+              <span class="star active" data-value="1">★</span>
+              <span class="star active" data-value="2">★</span>
+              <span class="star active" data-value="3">★</span>
+              <span class="star active" data-value="4">★</span>
+              <span class="star active" data-value="5">★</span>
+            </div>
+            <input type="hidden" name="rating" id="review-rating" value="5" required />
           </div>
         </div>
         <div class="form-group">
