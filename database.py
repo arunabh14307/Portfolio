@@ -162,20 +162,20 @@ def init_db():
 
     conn.commit()
 
-    # Seed default admin if not exists
+    # ── Seed default admin ─────────────────────────────────────────
     existing = c.execute("SELECT id FROM users WHERE username='admin'").fetchone()
     if not existing:
         c.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)",
                   ('admin', generate_password_hash('admin123')))
         conn.commit()
 
-    # Seed default profile if empty
+    # ── Seed default profile ───────────────────────────────────────
     profile_count = c.execute("SELECT COUNT(*) FROM profile").fetchone()[0]
     if profile_count == 0:
         c.execute("INSERT INTO profile (name) VALUES ('Arunabh Singh')")
         conn.commit()
 
-    # Seed sample skills if empty
+    # ── Seed skills ────────────────────────────────────────────────
     skill_count = c.execute("SELECT COUNT(*) FROM skills").fetchone()[0]
     if skill_count == 0:
         sample_skills = [
@@ -194,7 +194,7 @@ def init_db():
                       (s[0], s[1], s[2], s[3], s[4], s[5], now))
         conn.commit()
 
-    # Seed sample projects
+    # ── Seed projects ──────────────────────────────────────────────
     proj_count = c.execute("SELECT COUNT(*) FROM projects").fetchone()[0]
     if proj_count == 0:
         sample_projects = [
@@ -210,7 +210,7 @@ def init_db():
                          github_link, demo_link, video_link, image, featured) VALUES (?,?,?,?,?,?,?,?,?,?)''', p)
         conn.commit()
 
-    # Seed sample achievements
+    # ── Seed achievements ──────────────────────────────────────────
     ach_count = c.execute("SELECT COUNT(*) FROM achievements").fetchone()[0]
     if ach_count == 0:
         sample_ach = [
@@ -223,7 +223,7 @@ def init_db():
             c.execute("INSERT INTO achievements (title, description, icon, date, category) VALUES (?,?,?,?,?)", a)
         conn.commit()
 
-    # Seed sample testimonials
+    # ── Seed testimonials ──────────────────────────────────────────
     test_count = c.execute("SELECT COUNT(*) FROM testimonials").fetchone()[0]
     if test_count == 0:
         sample_test = [
@@ -235,22 +235,43 @@ def init_db():
             c.execute("INSERT INTO testimonials (name, role, organization, content, avatar, rating) VALUES (?,?,?,?,?,?)", t)
         conn.commit()
 
-    # Seed sample blog posts
+    # ── Seed blog posts ────────────────────────────────────────────
     blog_count = c.execute("SELECT COUNT(*) FROM blog_posts").fetchone()[0]
     if blog_count == 0:
         sample_blogs = [
-            ('Getting Started with Flask', '<p>Flask is a lightweight Python web framework that makes it easy to build web applications rapidly. In this post, we explore the basics of Flask routing, templates, and forms.</p><h2>Why Flask?</h2><p>Flask gives you the freedom to structure your application the way you want. It\'s minimal but extensible — perfect for small to large projects.</p><h2>Your First App</h2><pre><code>from flask import Flask\napp = Flask(__name__)\n\n@app.route("/")\ndef hello():\n    return "Hello, World!"</code></pre><p>Run with <code>python app.py</code> and visit <code>http://127.0.0.1:5000/</code>.</p>',
+            ('Getting Started with Flask', '<p>Flask is a lightweight Python web framework that makes it easy to build web applications rapidly. In this post, we explore the basics of Flask routing, templates, and forms.</p><h2>Why Flask?</h2><p>Flask gives you the freedom to structure your application the way you want.</p>',
              'A beginner-friendly guide to building web applications with Flask.', 'Python,Flask,Web Development', '', '2025-01-15', 1),
-            ('Python Tips & Tricks for Beginners', '<p>Python is one of the most beginner-friendly languages, but it also has many powerful features that even experienced developers love.</p><h2>List Comprehensions</h2><p>Instead of writing a loop, use list comprehensions for cleaner code:</p><pre><code>squares = [x**2 for x in range(10)]</code></pre><h2>f-Strings</h2><p>Format strings elegantly:</p><pre><code>name = "Arunabh"\nprint(f"Hello, {name}!")</code></pre>',
+            ('Python Tips & Tricks for Beginners', '<p>Python is one of the most beginner-friendly languages, but it also has many powerful features that even experienced developers love.</p>',
              'Handy Python tips to write cleaner and more Pythonic code.', 'Python,Programming,Tips', '', '2025-02-01', 1),
-            ('Cybersecurity Basics: Staying Safe Online', '<p>In an increasingly connected world, cybersecurity is more important than ever. Here are the fundamental principles every developer should know.</p><h2>Use Strong Passwords</h2><p>Always use a password manager and generate unique, strong passwords for each service.</p><h2>Keep Software Updated</h2><p>Security patches are released regularly — keeping your systems updated protects against known vulnerabilities.</p>',
+            ('Cybersecurity Basics: Staying Safe Online', '<p>In an increasingly connected world, cybersecurity is more important than ever. Here are the fundamental principles every developer should know.</p>',
              'Essential cybersecurity concepts every developer should know.', 'Cybersecurity,Security', '', '2025-03-01', 1),
         ]
         for b in sample_blogs:
             c.execute("INSERT INTO blog_posts (title, content, summary, tags, cover_image, publish_date, published) VALUES (?,?,?,?,?,?,?)", b)
         conn.commit()
 
+    # ══════════════════════════════════════════════════════════════
+    # ADD YOUR CERTIFICATES HERE
+    # Each tuple: (name, organization, date, file_path, verify_link, image)
+    # - file_path / image: leave '' if you don't have a file
+    # - verify_link: paste the certificate URL (Coursera, LinkedIn, etc.)
+    # After editing, run: git add database.py portfolio.db && git push
+    # ══════════════════════════════════════════════════════════════
+    cert_count = c.execute("SELECT COUNT(*) FROM certificates").fetchone()[0]
+    if cert_count == 0:
+        my_certificates = [
+            # (name, organization, date, file_path, verify_link, image_url)
+            # ── Add your real certificates below ──────────────────
+            # Example:
+            # ('Python for Everybody', 'Coursera / University of Michigan', '2024-06', '', 'https://coursera.org/verify/...', ''),
+            # ('Responsive Web Design', 'freeCodeCamp', '2024-03', '', 'https://freecodecamp.org/certification/...', ''),
+        ]
+        for cert in my_certificates:
+            c.execute("INSERT INTO certificates (name, organization, date, file_path, verify_link, image) VALUES (?,?,?,?,?,?)", cert)
+        conn.commit()
+
     conn.close()
+
 
 def log_activity(action, details=''):
     try:
@@ -260,6 +281,5 @@ def log_activity(action, details=''):
         conn.commit()
         conn.close()
     except Exception:
-        # Vercel has a read-only filesystem; writes will fail silently so
-        # the public portfolio page remains accessible.
+        # Vercel has a read-only filesystem; writes fail silently.
         pass
