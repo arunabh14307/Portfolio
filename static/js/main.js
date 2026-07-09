@@ -328,7 +328,7 @@ async function loadCertificates() {
     const hasImage = c.image && !c.image.toLowerCase().endsWith('.pdf');
     const hasFile  = c.file_path || c.image;
 
-    // Preview button: lightbox for stored images, verify_link as fallback, disabled if neither
+    // Preview always opens lightbox if image exists, else opens verify_link URL
     let previewBtn = '';
     if (hasImage) {
       previewBtn = `<button class="btn btn-outline btn-sm" onclick="openLightbox('${esc(c.image)}')">👁 Preview</button>`;
@@ -342,10 +342,10 @@ async function loadCertificates() {
 
     return `
     <div class="card cert-card" data-aos="fade-up">
-      <div class="cert-img-wrap" style="cursor:${hasImage?'pointer':'default'}"
+      <div class="cert-img-wrap" style="cursor:${hasImage ? 'pointer' : 'default'}"
            onclick="${hasImage ? `openLightbox('${esc(c.image)}')` : 'void(0)'}">
-        ${c.image
-          ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:cover;" />`
+        ${hasImage
+          ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />`
           : '<span style="font-size:3rem">🏅</span>'}
       </div>
       <div class="cert-body">
@@ -355,7 +355,6 @@ async function loadCertificates() {
         <div class="cert-actions" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem">
           ${previewBtn}
           ${hasFile ? `<a href="/certificates/${c.id}/download" class="btn btn-primary btn-sm" download>⬇ Download</a>` : ''}
-          ${c.verify_link ? `<a href="${esc(c.verify_link)}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">🔗 Verify</a>` : ''}
         </div>
       </div>
     </div>`;
