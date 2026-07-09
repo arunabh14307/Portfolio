@@ -301,8 +301,6 @@ function renderProjects() {
             ${p.github_link ? `<a href="${esc(p.github_link)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">🐱 GitHub</a>` : ''}
             ${p.demo_link   ? `<a href="${esc(p.demo_link)}"   target="_blank" rel="noopener" class="btn btn-primary btn-sm">🚀 Live Demo</a>` : ''}
             ${p.video_link  ? `<a href="${esc(p.video_link)}"  target="_blank" rel="noopener" class="btn btn-outline btn-sm">🎬 Video</a>` : ''}
-            ${!p.github_link && !p.demo_link && !p.video_link
-              ? `<span class="btn btn-secondary btn-sm" style="opacity:.5;cursor:default">🔒 Private</span>` : ''}
           </div>
         </div>
       </div>`;
