@@ -366,11 +366,7 @@ function openLightbox(src, name) {
   const img = $('lightbox-img');
   img.src = '';
   img.alt = name || 'Certificate';
-  img.style.background = '#fff';
-  img.style.borderRadius = '8px';
-  img.style.padding = '8px';
-  // Use encodeURI to handle spaces/special chars in filename
-  img.src = encodeURI(src);
+  img.src = src;
   $('lightbox').classList.add('open');
 }
 $('lightbox-close').addEventListener('click', () => $('lightbox').classList.remove('open'));
