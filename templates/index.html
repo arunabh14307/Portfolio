@@ -212,24 +212,26 @@
     <!-- Leave a Review Form -->
     <div class="leave-review-wrap" data-aos="fade-up" style="margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
       <h3 style="text-align:center; margin-bottom: 2rem;">Leave a Review</h3>
-      <form class="contact-form" id="review-form" style="grid-template-columns: 1fr;">
+      <form action="https://formsubmit.co/arun12507086@gmail.com" method="POST" class="contact-form" id="review-form" style="grid-template-columns: 1fr;">
+        <input type="hidden" name="_subject" value="New Review from Portfolio">
+        <input type="hidden" name="_captcha" value="false">
         <div class="form-group">
           <label for="review-name">Your Name</label>
-          <input type="text" id="review-name" placeholder="John Doe" required />
+          <input type="text" name="name" id="review-name" placeholder="John Doe" required />
         </div>
         <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
           <div>
             <label for="review-role">Role / Relationship</label>
-            <input type="text" id="review-role" placeholder="Client, Colleague..." required />
+            <input type="text" name="role" id="review-role" placeholder="Client, Colleague..." required />
           </div>
           <div>
             <label for="review-rating">Rating (1-5)</label>
-            <input type="number" id="review-rating" min="1" max="5" value="5" required />
+            <input type="number" name="rating" id="review-rating" min="1" max="5" value="5" required />
           </div>
         </div>
         <div class="form-group">
           <label for="review-msg">Review Message</label>
-          <textarea id="review-msg" rows="4" placeholder="Your experience working with me..." required></textarea>
+          <textarea name="content" id="review-msg" rows="4" placeholder="Your experience working with me..." required></textarea>
         </div>
         <div class="form-msg" id="review-form-msg"></div>
         <button type="submit" class="btn btn-outline" id="review-submit" style="justify-self: center;">Submit Review</button>
@@ -250,18 +252,20 @@
       <div class="contact-info" id="contact-info" data-aos="fade-right">
         <!-- Populated by JS -->
       </div>
-      <form class="contact-form" id="contact-form" data-aos="fade-left">
+      <form action="https://formsubmit.co/arun12507086@gmail.com" method="POST" class="contact-form" id="contact-form" data-aos="fade-left">
+        <input type="hidden" name="_subject" value="New Contact Message from Portfolio">
+        <input type="hidden" name="_captcha" value="false">
         <div class="form-group">
           <label for="contact-name">Your Name</label>
-          <input type="text" id="contact-name" placeholder="John Doe" required />
+          <input type="text" name="name" id="contact-name" placeholder="John Doe" required />
         </div>
         <div class="form-group">
           <label for="contact-email">Email Address</label>
-          <input type="email" id="contact-email" placeholder="john@example.com" required />
+          <input type="email" name="email" id="contact-email" placeholder="john@example.com" required />
         </div>
         <div class="form-group">
           <label for="contact-msg">Message</label>
-          <textarea id="contact-msg" rows="5" placeholder="Your message here…" required></textarea>
+          <textarea name="message" id="contact-msg" rows="5" placeholder="Your message here…" required></textarea>
         </div>
         <div class="form-msg" id="form-msg"></div>
         <button type="submit" class="btn btn-primary" id="contact-submit">✉ Send Message</button>

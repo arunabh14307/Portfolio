@@ -457,86 +457,10 @@ function goToSlide(idx) {
 }
 
 /* ── CONTACT FORM ───────────────────────────────────────────── */
-$('contact-form').addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn = $('contact-submit');
-  const msg = $('form-msg');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  msg.style.display = 'none';
-
-  try {
-    const res = await fetch(API.messages, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:    $('contact-name').value,
-        email:   $('contact-email').value,
-        message: $('contact-msg').value,
-      })
-    });
-    const data = await res.json();
-    if (data.success) {
-      msg.className = 'form-msg success';
-      msg.textContent = '✅ ' + data.message;
-      msg.style.display = 'block';
-      $('contact-form').reset();
-    } else {
-      throw new Error(data.error || 'Error');
-    }
-  } catch (err) {
-    msg.className = 'form-msg error';
-    msg.textContent = '❌ ' + (err.message || 'Failed to send. Please try again.');
-    msg.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '✉ Send Message';
-  }
-});
+// Contact form now uses standard HTML form submission to FormSubmit
 
 /* ── REVIEW FORM ────────────────────────────────────────────── */
-$('review-form')?.addEventListener('submit', async e => {
-  e.preventDefault();
-  const btn = $('review-submit');
-  const msg = $('review-form-msg');
-  btn.disabled = true;
-  btn.textContent = 'Submitting…';
-  msg.style.display = 'none';
-
-  try {
-    const res = await fetch(API.testimonials, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:         $('review-name').value,
-        role:         $('review-role').value,
-        rating:       $('review-rating').value,
-        content:      $('review-msg').value,
-        organization: '',
-        avatar:       ''
-      })
-    });
-    const data = await res.json();
-    if (data.success) {
-      msg.className = 'form-msg success';
-      msg.textContent = '✅ Review submitted successfully!';
-      msg.style.display = 'block';
-      $('review-form').reset();
-      // Reload testimonials to show the new review instantly
-      await loadTestimonials();
-      document.getElementById('testimonials').style.display = 'block';
-    } else {
-      throw new Error(data.error || 'Error');
-    }
-  } catch (err) {
-    msg.className = 'form-msg error';
-    msg.textContent = '❌ ' + (err.message || 'Failed to submit. Please try again.');
-    msg.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Submit Review';
-  }
-});
+// Review form now uses standard HTML form submission to FormSubmit
 
 
 /* ── AOS ────────────────────────────────────────────────────── */
