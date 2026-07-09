@@ -331,7 +331,7 @@ async function loadCertificates() {
     // Preview always opens lightbox if image exists, else opens verify_link URL
     let previewBtn = '';
     if (hasImage) {
-      previewBtn = `<button class="btn btn-outline btn-sm" onclick="openLightbox('${esc(c.image)}')">👁 Preview</button>`;
+      previewBtn = `<button class="btn btn-outline btn-sm" onclick="openLightbox('${esc(c.image)}','${esc(c.name)}')">👁 Preview</button>`;
     } else if (c.verify_link) {
       previewBtn = `<a href="${esc(c.verify_link)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">👁 Preview</a>`;
     } else if (c.file_path) {
@@ -343,9 +343,9 @@ async function loadCertificates() {
     return `
     <div class="card cert-card" data-aos="fade-up">
       <div class="cert-img-wrap" style="cursor:${hasImage ? 'pointer' : 'default'}"
-           onclick="${hasImage ? `openLightbox('${esc(c.image)}')` : 'void(0)'}">
+           onclick="${hasImage ? `openLightbox('${esc(c.image)}','${esc(c.name)}')` : 'void(0)'}">
         ${hasImage
-          ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />`
+          ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" style="width:100%;height:100%;object-fit:contain;background:#fff;padding:4px;" loading="lazy" />`
           : '<span style="font-size:3rem">🏅</span>'}
       </div>
       <div class="cert-body">
@@ -361,9 +361,16 @@ async function loadCertificates() {
   }).join('');
 }
 
-function openLightbox(src) {
+function openLightbox(src, name) {
   if (!src) return;
-  $('lightbox-img').src = src;
+  const img = $('lightbox-img');
+  img.src = '';
+  img.alt = name || 'Certificate';
+  img.style.background = '#fff';
+  img.style.borderRadius = '8px';
+  img.style.padding = '8px';
+  // Use encodeURI to handle spaces/special chars in filename
+  img.src = encodeURI(src);
   $('lightbox').classList.add('open');
 }
 $('lightbox-close').addEventListener('click', () => $('lightbox').classList.remove('open'));
