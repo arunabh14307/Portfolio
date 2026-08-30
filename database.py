@@ -236,7 +236,7 @@ def init_db():
             ('Facial Recognition System', 'A computer vision-based facial recognition application designed to detect and identify human faces using image processing and recognition techniques.',
              'Python, OpenCV, Computer Vision', 'Computer Vision', 'Intermediate', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
             ('Water Quality Monitoring System', 'An Arduino-based monitoring system that uses a turbidity sensor to monitor water clarity and detect changes in water quality.',
-             'Arduino Uno, Turbidity Sensor, Embedded Systems', 'Embedded Systems', 'Intermediate', '', '', '', '/static/uploads/project/port.jpg', 0),
+             'Arduino Uno, Turbidity Sensor, Embedded Systems', 'Embedded Systems', 'Intermediate', '', '', '', '/static/uploads/project/Water-Quality-Monitoring-ESP32-780x439.jpg', 0),
             ('Vendor Cart', 'A web-based vendor shopping/cart management application designed to provide a simple and user-friendly interface for managing products and cart operations.',
              'HTML, CSS, JavaScript', 'Web Development', 'Intermediate', '', '', '', '/static/uploads/project/vendor.png', 0),
         ]
