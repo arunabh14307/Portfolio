@@ -124,16 +124,21 @@ async function loadProfile() {
     $('typed-el').textContent = titles[0];
   }
 
-  // Resume button in Hero
+  // Resume buttons (Hero and Navbar)
   const resumeBtn = $('hero-resume-btn');
-  if (resumeBtn) {
-    if (p.resume_file) {
+  const navResume = $('nav-resume-link');
+  if (p.resume_file) {
+    if (resumeBtn) {
       resumeBtn.href = '/resume/download';
       resumeBtn.setAttribute('target', '_blank');
-      resumeBtn.removeAttribute('onclick');
-    } else {
-      resumeBtn.href = '#contact';
     }
+    if (navResume) {
+      navResume.href = '/resume/download';
+      navResume.setAttribute('target', '_blank');
+    }
+  } else {
+    if (resumeBtn) resumeBtn.href = '#contact';
+    if (navResume) navResume.href = '#contact';
   }
 
   // Social links
