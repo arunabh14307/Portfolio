@@ -184,7 +184,7 @@ def init_db():
     if profile_count == 0:
         c.execute("""
             INSERT INTO profile (
-                name, title, bio, about, education, college, course, year, email, location, linkedin, github, profile_image
+                name, title, bio, about, education, college, course, year, email, location, linkedin, github, profile_image, resume_file
             ) VALUES (
                 'Arunabh Singh',
                 'B.Tech CSE Student | AI/ML & Full-Stack Developer',
@@ -198,7 +198,8 @@ def init_db():
                 'India',
                 'https://www.linkedin.com/in/arunabh-singh-3a2629383/',
                 'https://github.com/arunabh14307',
-                '/static/uploads/profiles/20260325_115555_WhatsApp_Image_2026-03-25_at_11.55.36_AM.jpeg'
+                '/static/uploads/profiles/20260325_115555_WhatsApp_Image_2026-03-25_at_11.55.36_AM.jpeg',
+                '/static/CV_Arunabh_Singh_Final.pdf'
             )
         """)
         conn.commit()

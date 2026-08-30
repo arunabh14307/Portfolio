@@ -105,18 +105,14 @@ async function loadProfile() {
   // Resume buttons (Hero and Navbar)
   const resumeBtn = $('hero-resume-btn');
   const navResume = $('nav-resume-link');
-  if (p.resume_file) {
-    if (resumeBtn) {
-      resumeBtn.href = '/resume/download';
-      resumeBtn.setAttribute('target', '_blank');
-    }
-    if (navResume) {
-      navResume.href = '/resume/download';
-      navResume.setAttribute('target', '_blank');
-    }
-  } else {
-    if (resumeBtn) resumeBtn.href = '#contact';
-    if (navResume) navResume.href = '#contact';
+  const resumeUrl = p.resume_file || '/static/CV_Arunabh_Singh_Final.pdf';
+  if (resumeBtn) {
+    resumeBtn.href = resumeUrl;
+    resumeBtn.setAttribute('target', '_blank');
+  }
+  if (navResume) {
+    navResume.href = resumeUrl;
+    navResume.setAttribute('target', '_blank');
   }
 
   // Social links

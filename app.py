@@ -108,9 +108,16 @@ def resume_download():
     db = get_db()
     profile = db.execute("SELECT resume_file FROM profile LIMIT 1").fetchone()
     db.close()
-    if profile and profile['resume_file']:
-        filename = os.path.basename(profile['resume_file'])
-        return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+    resume_path = profile['resume_file'] if (profile and profile['resume_file']) else '/static/CV_Arunabh_Singh_Final.pdf'
+    rel = resume_path.lstrip('/')
+    base_dir = os.path.dirname(__file__)
+    full_path = os.path.join(base_dir, rel)
+    if os.path.isfile(full_path):
+        dir_name, file_name = os.path.split(full_path)
+        return send_from_directory(dir_name, file_name, as_attachment=True)
+    static_file = os.path.join(base_dir, 'static', 'CV_Arunabh_Singh_Final.pdf')
+    if os.path.isfile(static_file):
+        return send_from_directory(os.path.join(base_dir, 'static'), 'CV_Arunabh_Singh_Final.pdf', as_attachment=True)
     abort(404)
 
 
