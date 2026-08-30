@@ -231,8 +231,8 @@ def init_db():
     proj_count = c.execute("SELECT COUNT(*) FROM projects").fetchone()[0]
     if proj_count == 0:
         sample_projects = [
-            ('FaceVault AI', 'A secure facial authentication system focused on privacy-preserving biometric verification, secure facial embeddings, and reliable user authentication.',
-             'Python, Computer Vision, Deep Learning', 'AI / Machine Learning', 'Advanced', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
+            ('FaceVault AI', 'A secure facial authentication system designed to identify and verify users through facial features. The system uses computer vision and facial recognition techniques for real-time identity verification and automated authentication, reducing dependency on traditional password-based authentication.',
+             'Python, OpenCV, Face Recognition, Computer Vision, Machine Learning', 'AI / Machine Learning', 'Advanced', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
             ('Facial Recognition System', 'A computer vision-based facial recognition application designed to detect and identify human faces using image processing and recognition techniques.',
              'Python, OpenCV, Computer Vision', 'Computer Vision', 'Intermediate', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
             ('Water Quality Monitoring System', 'An Arduino-based monitoring system that uses a turbidity sensor to monitor water clarity and detect changes in water quality.',
