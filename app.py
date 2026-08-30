@@ -51,24 +51,46 @@ def rows_to_list(rows):
 
 @app.route('/')
 def index():
+    profile = {}
+    skills = []
+    projects = []
+    certificates = []
+    achievements = []
     try:
         db = get_db()
+        prof_row = db.execute("SELECT * FROM profile LIMIT 1").fetchone()
+        if prof_row:
+            profile = dict(prof_row)
+        skills = [dict(s) for s in db.execute("SELECT * FROM skills ORDER BY category, id").fetchall()]
+        projects = [dict(p) for p in db.execute("SELECT * FROM projects ORDER BY featured DESC, id DESC").fetchall()]
+        certificates = [dict(c) for c in db.execute("SELECT * FROM certificates ORDER BY date DESC, id DESC").fetchall()]
+        achievements = [dict(a) for a in db.execute("SELECT * FROM achievements ORDER BY id ASC").fetchall()]
+
         # Record analytics
-        today = datetime.now().strftime('%Y-%m-%d')
-        ip_hash = get_ip_hash()
-        # One unique visit per IP per day per page
-        existing = db.execute(
-            "SELECT id FROM analytics WHERE visit_date=? AND page=? AND ip_hash=?",
-            (today, '/', ip_hash)).fetchone()
-        if not existing:
-            db.execute("INSERT INTO analytics (visit_date, page, ip_hash) VALUES (?,?,?)",
-                       (today, '/', ip_hash))
-            db.commit()
+        try:
+            today = datetime.now().strftime('%Y-%m-%d')
+            ip_hash = get_ip_hash()
+            existing = db.execute(
+                "SELECT id FROM analytics WHERE visit_date=? AND page=? AND ip_hash=?",
+                (today, '/', ip_hash)).fetchone()
+            if not existing:
+                db.execute("INSERT INTO analytics (visit_date, page, ip_hash) VALUES (?,?,?)",
+                           (today, '/', ip_hash))
+                db.commit()
+        except Exception:
+            pass
         db.close()
     except Exception:
-        # Analytics writes fail silently on Vercel (read-only filesystem)
         pass
-    return render_template('index.html')
+
+    return render_template(
+        'index.html',
+        profile=profile,
+        skills=skills,
+        projects=projects,
+        certificates=certificates,
+        achievements=achievements
+    )
 
 
 @app.route('/blog/<int:post_id>')
