@@ -172,21 +172,47 @@ def init_db():
     # ── Seed default profile ───────────────────────────────────────
     profile_count = c.execute("SELECT COUNT(*) FROM profile").fetchone()[0]
     if profile_count == 0:
-        c.execute("INSERT INTO profile (name) VALUES ('Arunabh Singh')")
+        c.execute("""
+            INSERT INTO profile (
+                name, title, bio, about, education, college, course, year, email, location, linkedin, github, profile_image
+            ) VALUES (
+                'Arunabh Singh',
+                'B.Tech CSE Student | AI/ML & Full-Stack Developer',
+                'I build practical AI-powered applications, web solutions, and real-world technology projects.',
+                'I am a B.Tech Computer Science and Engineering student with a strong interest in Artificial Intelligence, Machine Learning, Web Development, and practical technology solutions. I enjoy building real-world projects that combine software, AI, and hardware to solve meaningful problems. I continuously improve my technical skills through projects, certifications, hackathons, and hands-on learning.',
+                'B.Tech — Computer Science & Engineering',
+                'Lovely Professional University',
+                'Computer Science & Engineering',
+                '2025 – Present',
+                'arunabh14307@gmail.com',
+                'India',
+                'https://www.linkedin.com/in/arunabh-singh-3a2629383/',
+                'https://github.com/arunabh14307',
+                '/static/uploads/profiles/20260325_115555_WhatsApp_Image_2026-03-25_at_11.55.36_AM.jpeg'
+            )
+        """)
         conn.commit()
 
     # ── Seed skills ────────────────────────────────────────────────
     skill_count = c.execute("SELECT COUNT(*) FROM skills").fetchone()[0]
     if skill_count == 0:
         sample_skills = [
-            ('Python', 3, 80, 'Programming', 'Backend programming language', '🐍'),
-            ('HTML & CSS', 3, 85, 'Web', 'Core web technologies', '🌐'),
-            ('JavaScript', 2, 65, 'Web', 'Interactive web scripting', '⚡'),
-            ('Flask', 2, 60, 'Backend', 'Python web framework', '🌶️'),
-            ('SQLite / MySQL', 2, 60, 'Database', 'Relational databases', '🗄️'),
-            ('Git & GitHub', 3, 75, 'Tools', 'Version control', '🐙'),
-            ('C / C++', 2, 55, 'Programming', 'System programming', '⚙️'),
-            ('Linux', 2, 60, 'Tools', 'Operating system', '🐧'),
+            ('C++', 3, 85, 'Programming', 'Foundational, high-performance programming language used for systems and algorithms.', '/static/uploads/skills/20260327_013759_cc.png'),
+            ('Python', 3, 90, 'Programming', 'Core language for AI/ML, backend scripting, and automation.', '/static/uploads/skills/20260408_101717_download_1.jpg'),
+            ('JavaScript', 3, 80, 'Programming', 'Dynamic scripting language for frontend and interactive web applications.', '/static/uploads/skills/20260408_101907_JavaScript-logo.png'),
+            ('HTML', 3, 90, 'Web Development', 'Semantic markup and standard web document structure.', '/static/uploads/skills/20260327_012315_html.jpg'),
+            ('CSS', 3, 85, 'Web Development', 'Modern responsive layouts, flexbox, grid, and CSS styling.', '/static/uploads/skills/20260327_012315_html.jpg'),
+            ('JavaScript (Web)', 3, 80, 'Web Development', 'DOM manipulation, modern ES6+, and asynchronous APIs.', '/static/uploads/skills/20260408_101907_JavaScript-logo.png'),
+            ('React', 2, 70, 'Web Development', 'Component-based UI library for responsive, scalable frontend applications.', ''),
+            ('Machine Learning', 3, 80, 'AI / Machine Learning', 'Supervised and unsupervised ML algorithms, modeling, and evaluation.', ''),
+            ('Deep Learning', 2, 75, 'AI / Machine Learning', 'Neural networks, architectures, and deep feature representations.', ''),
+            ('Computer Vision', 3, 80, 'AI / Machine Learning', 'Image processing, facial recognition, and OpenCV implementations.', ''),
+            ('TensorFlow', 2, 70, 'AI / Machine Learning', 'Open-source machine learning framework for training and deploying deep neural models.', ''),
+            ('MySQL', 3, 80, 'Database', 'Relational database management, querying, and schema design.', '/static/uploads/skills/20260408_102116_mysql-1-logo-png-transparent.png'),
+            ('MongoDB', 2, 70, 'Database', 'Document-oriented NoSQL database for flexible and scalable data storage.', ''),
+            ('Git', 3, 85, 'Tools', 'Distributed version control system for source code tracking and collaboration.', '/static/uploads/skills/20260408_101803_github-6980894_960_720.webp'),
+            ('GitHub', 3, 85, 'Tools', 'Cloud-based platform for version control, repository hosting, and code collaboration.', '/static/uploads/skills/20260408_101803_github-6980894_960_720.webp'),
+            ('VS Code', 3, 90, 'Tools', 'Modern code editor and development environment.', '')
         ]
         now = datetime.now().isoformat()
         for s in sample_skills:
@@ -198,12 +224,14 @@ def init_db():
     proj_count = c.execute("SELECT COUNT(*) FROM projects").fetchone()[0]
     if proj_count == 0:
         sample_projects = [
-            ('Portfolio Website', 'A full-featured personal portfolio with admin dashboard, analytics, blog system, and skill tracking built with Flask and SQLite.',
-             'Python,Flask,HTML,CSS,JavaScript,SQLite', 'Web Development', 'Advanced', '', '', '', '', 1),
-            ('VendorCart', 'A local commerce and campus food discovery platform with vendor management, product listings, and delivery tracking.',
-             'HTML,CSS,JavaScript', 'Web Development', 'Intermediate', '', '', '', '', 0),
-            ('Cybersecurity Toolkit', 'A collection of Python scripts for ethical hacking and security auditing including port scanning and password analysis.',
-             'Python,Cybersecurity', 'Cybersecurity', 'Intermediate', '', '', '', '', 0),
+            ('FaceVault AI', 'A secure facial authentication system focused on privacy-preserving biometric verification, secure facial embeddings, and reliable user authentication.',
+             'Python, Computer Vision, Deep Learning', 'AI / Machine Learning', 'Advanced', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
+            ('Facial Recognition System', 'A computer vision-based facial recognition application designed to detect and identify human faces using image processing and recognition techniques.',
+             'Python, OpenCV, Computer Vision', 'Computer Vision', 'Intermediate', '', '', '', '/static/uploads/project/facial_recognition.png', 1),
+            ('Water Quality Monitoring System', 'An Arduino-based monitoring system that uses a turbidity sensor to monitor water clarity and detect changes in water quality.',
+             'Arduino Uno, Turbidity Sensor, Embedded Systems', 'Embedded Systems', 'Intermediate', '', '', '', '/static/uploads/project/port.jpg', 0),
+            ('Vendor Cart', 'A web-based vendor shopping/cart management application designed to provide a simple and user-friendly interface for managing products and cart operations.',
+             'HTML, CSS, JavaScript', 'Web Development', 'Intermediate', '', '', '', '/static/uploads/project/vendor.png', 0),
         ]
         for p in sample_projects:
             c.execute('''INSERT INTO projects (title, description, technologies, category, difficulty,
@@ -214,10 +242,10 @@ def init_db():
     ach_count = c.execute("SELECT COUNT(*) FROM achievements").fetchone()[0]
     if ach_count == 0:
         sample_ach = [
-            ("Dean's List", 'Achieved top academic performance in the department.', 'A+', '2024', 'Academic'),
-            ('Hackathon Participant', 'Participated in a 24-hour national level hackathon.', '[Hack]', '2024', 'Competition'),
-            ('Open Source Contributor', 'Contributed to open source projects on GitHub.', '[Star]', '2025', 'Community'),
-            ('100 Days of Code', 'Completed the 100 Days of Code challenge.', '[100]', '2024', 'Personal'),
+            ('Innovation & Tech Hackathon', 'Runner-Up', '🏆', 'Hackathon', 'Competition'),
+            ('Google Arcade', 'Google Arcade Achievement', '☁️', 'Achievement', 'Badges'),
+            ('Community Development Program', 'Environmental Awareness Initiative', '🌱', 'Initiative', 'Leadership & Community'),
+            ('Plantation Drive', 'Environmental Awareness & Plantation Initiative', '🌳', 'Initiative', 'Leadership & Community')
         ]
         for a in sample_ach:
             c.execute("INSERT INTO achievements (title, description, icon, date, category) VALUES (?,?,?,?,?)", a)

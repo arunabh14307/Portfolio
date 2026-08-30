@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="page-title">Portfolio</title>
-  <meta name="description" id="meta-desc" content="Personal Portfolio Website" />
+  <title id="page-title">Arunabh Singh — Portfolio</title>
+  <meta name="description" id="meta-desc" content="Personal Portfolio of Arunabh Singh - B.Tech CSE Student | AI/ML & Full-Stack Developer" />
   <link rel="icon" type="image/png" href="/static/favicon.png" />
 
   <!-- Styles -->
@@ -35,11 +35,12 @@
     <ul class="nav-links" id="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#certificates">Certs</a></li>
+      <li><a href="#certificates">Certificates</a></li>
       <li><a href="#achievements">Achievements</a></li>
-      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#leadership">Leadership</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
@@ -65,10 +66,12 @@
       <div class="hero-badge"><span class="dot"></span> Open to Opportunities</div>
       <h1 class="hero-name">Hi, I'm <br><span class="gradient-text" id="hero-name">Arunabh Singh</span></h1>
       <p class="hero-title" id="hero-typed-wrap">
-        <span id="typed-el"></span>
+        <span id="typed-el">B.Tech CSE Student | AI/ML & Full-Stack Developer</span>
       </p>
-      <p class="hero-bio" id="hero-bio">Welcome to my portfolio! I am a passionate developer.</p>
+      <p class="hero-bio" id="hero-bio">I build practical AI-powered applications, web solutions, and real-world technology projects.</p>
       <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="/resume/download" class="btn btn-outline" id="hero-resume-btn">Download Resume</a>
       </div>
       <div class="hero-social" id="hero-social">
         <!-- Populated by JS -->
@@ -79,7 +82,7 @@
       <div class="hero-photo-container" id="hero-photo-container">
         <div class="hero-photo-ring"></div>
         <div class="hero-photo-ring-2"></div>
-        <div class="hero-photo-placeholder" id="hero-photo">AS</div>
+        <img src="/static/uploads/profiles/20260325_115555_WhatsApp_Image_2026-03-25_at_11.55.36_AM.jpeg" class="hero-photo" alt="Arunabh Singh" id="hero-photo" />
       </div>
     </div>
   </div>
@@ -95,9 +98,12 @@
     </div>
     <div class="about-grid">
       <div class="about-text" data-aos="fade-right">
-        <p id="about-desc">Loading...</p>
+        <p id="about-desc">I am a B.Tech Computer Science and Engineering student with a strong interest in Artificial Intelligence, Machine Learning, Web Development, and practical technology solutions. I enjoy building real-world projects that combine software, AI, and hardware to solve meaningful problems. I continuously improve my technical skills through projects, certifications, hackathons, and hands-on learning.</p>
         <div class="about-info" id="about-info">
-          <!-- Populated by JS -->
+          <div class="about-info-item"><div class="label">🎓 College</div><div class="value">Lovely Professional University</div></div>
+          <div class="about-info-item"><div class="label">📚 Course</div><div class="value">B.Tech — Computer Science & Engineering</div></div>
+          <div class="about-info-item"><div class="label">📅 Year</div><div class="value">2025 – Present</div></div>
+          <div class="about-info-item"><div class="label">📍 Location</div><div class="value">India</div></div>
         </div>
       </div>
       <div data-aos="fade-left">
@@ -110,8 +116,51 @@
   </div>
 </section>
 
+<!-- ══ EDUCATION ════════════════════════════════════════════════ -->
+<section class="section" id="education">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Education</h2>
+      <div class="title-line"></div>
+      <p>My academic journey and qualifications</p>
+    </div>
+    <div class="education-grid" data-aos="fade-up">
+      <div class="card edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-body">
+          <div class="edu-period">2025 – Present</div>
+          <h3 class="edu-school">Lovely Professional University</h3>
+          <div class="edu-degree">B.Tech — Computer Science & Engineering</div>
+        </div>
+      </div>
+      <div class="card edu-card">
+        <div class="edu-icon">🏫</div>
+        <div class="edu-body">
+          <div class="edu-period">Senior Secondary</div>
+          <h3 class="edu-school">Class XII — CBSE</h3>
+          <div class="edu-degree">Score: 89%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relevant Coursework -->
+    <div class="card coursework-box" data-aos="fade-up" style="margin-top: 2rem; padding: 2rem;">
+      <h3 style="font-size: 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text);">
+        <span>📖</span> Relevant Coursework
+      </h3>
+      <div class="coursework-tags" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+        <span class="tag">C++</span>
+        <span class="tag">Data Structures & Algorithms</span>
+        <span class="tag">Database Management Systems</span>
+        <span class="tag">Computer Networks</span>
+        <span class="tag">Artificial Intelligence / Machine Learning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══ SKILLS ══════════════════════════════════════════════════ -->
-<section class="section" id="skills">
+<section class="section section-alt" id="skills">
   <div class="container">
     <div class="section-title" data-aos="fade-up">
       <h2>Skills & Expertise</h2>
@@ -119,16 +168,14 @@
       <p>Tools and technologies I work with</p>
     </div>
 
-    <div class="skills-grid" id="skills-grid" data-aos="fade-up">
+    <div class="skills-categories-grid" id="skills-grid" data-aos="fade-up">
       <div class="loading-spinner"><div class="spinner"></div></div>
     </div>
-
-
   </div>
 </section>
 
 <!-- ══ PROJECTS ════════════════════════════════════════════════ -->
-<section class="section section-alt" id="projects">
+<section class="section" id="projects">
   <div class="container">
     <div class="section-title" data-aos="fade-up">
       <h2>My Projects</h2>
@@ -154,7 +201,7 @@
 </section>
 
 <!-- ══ CERTIFICATES ════════════════════════════════════════════ -->
-<section class="section" id="certificates">
+<section class="section section-alt" id="certificates">
   <div class="container">
     <div class="section-title" data-aos="fade-up">
       <h2>Certificates</h2>
@@ -174,7 +221,7 @@
 </div>
 
 <!-- ══ ACHIEVEMENTS ════════════════════════════════════════════ -->
-<section class="section section-alt" id="achievements">
+<section class="section" id="achievements">
   <div class="container">
     <div class="section-title" data-aos="fade-up">
       <h2>Achievements & Badges</h2>
@@ -187,62 +234,31 @@
   </div>
 </section>
 
-
-
-<!-- ══ TESTIMONIALS ════════════════════════════════════════════ -->
-<section class="section section-alt" id="testimonials">
+<!-- ══ LEADERSHIP & COMMUNITY ══════════════════════════════════ -->
+<section class="section section-alt" id="leadership">
   <div class="container">
     <div class="section-title" data-aos="fade-up">
-      <h2>Testimonials</h2>
+      <h2>Leadership & Community</h2>
       <div class="title-line"></div>
-      <p>What others say about working with me</p>
+      <p>Initiatives, sustainability drives, and community responsibility</p>
     </div>
-    <div class="testimonials-carousel" data-aos="fade-up">
-      <div class="testimonials-track" id="testimonials-track">
-        <!-- Populated by JS -->
+    <div class="leadership-grid" data-aos="fade-up">
+      <div class="card leadership-card">
+        <div class="leadership-icon">🌱</div>
+        <div>
+          <span class="tag" style="margin-bottom: 0.75rem;">Community Initiative</span>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);">Community Development Program — Environmental Awareness</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7;">Conducted environmental awareness sessions for school students during the summer break, focusing on environmental responsibility, sustainability, and awareness.</p>
+        </div>
       </div>
-      <div class="carousel-controls">
-        <button class="carousel-btn" id="carousel-prev" aria-label="Previous">◀</button>
-        <div class="carousel-dots" id="carousel-dots"></div>
-        <button class="carousel-btn" id="carousel-next" aria-label="Next">▶</button>
+      <div class="card leadership-card">
+        <div class="leadership-icon">🌳</div>
+        <div>
+          <span class="tag" style="margin-bottom: 0.75rem;">Sustainability Drive</span>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--text);">Plantation Drive</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7;">Organized and participated in a plantation drive as part of the community development initiative to promote environmental sustainability and greener surroundings.</p>
+        </div>
       </div>
-    </div>
-    </div>
-
-    <!-- Leave a Review Form -->
-    <div class="leave-review-wrap" data-aos="fade-up" style="margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-      <h3 style="text-align:center; margin-bottom: 2rem;">Leave a Review</h3>
-      <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="review-form" style="grid-template-columns: 1fr;">
-        <input type="hidden" name="access_key" value="115aeabd-19b1-4628-adf6-34808fec7d46">
-        <input type="hidden" name="subject" value="New Review from Portfolio">
-        <div class="form-group">
-          <label for="review-name">Your Name</label>
-          <input type="text" name="name" id="review-name" placeholder="Name" required />
-        </div>
-        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-          <div>
-            <label for="review-role">Role / Relationship</label>
-            <input type="text" name="role" id="review-role" placeholder="Client, Colleague..." required />
-          </div>
-          <div>
-            <label>Rating</label>
-            <div class="star-rating-input" id="star-rating-input">
-              <span class="star active" data-value="1">★</span>
-              <span class="star active" data-value="2">★</span>
-              <span class="star active" data-value="3">★</span>
-              <span class="star active" data-value="4">★</span>
-              <span class="star active" data-value="5">★</span>
-            </div>
-            <input type="hidden" name="rating" id="review-rating" value="5" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="review-msg">Review Message</label>
-          <textarea name="content" id="review-msg" rows="4" placeholder="Your experience working with me..." required></textarea>
-        </div>
-        <div class="form-msg" id="review-form-msg"></div>
-        <button type="submit" class="btn btn-outline" id="review-submit" style="justify-self: center;">Submit Review</button>
-      </form>
     </div>
   </div>
 </section>
