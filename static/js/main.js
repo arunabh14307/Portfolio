@@ -119,7 +119,7 @@ async function loadProfile() {
   const socialLinks = [
     { key: 'github',     icon: '🐱', label: 'GitHub' },
     { key: 'linkedin',   icon: '💼', label: 'LinkedIn' },
-    { key: 'email',      icon: '✉️', label: 'Email', customHref: p.email ? `mailto:${p.email}` : null },
+    { key: 'email',      icon: '✉️', label: 'Email', customHref: 'https://mail.google.com/mail/?view=cm&fs=1&to=arunabhsingh10@gmail.com' },
     { key: 'leetcode',   icon: '💻', label: 'LeetCode' },
     { key: 'hackerrank', icon: '🟢', label: 'HackerRank' },
   ];
