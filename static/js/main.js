@@ -227,16 +227,98 @@ function initTyped() {
 
 /* ── AOS ANIMATIONS ─────────────────────────────────────────── */
 function initAOS() {
-  if (window.AOS) {
-    AOS.init({ duration: 700, once: true, offset: 80 });
-  } else {
+  const triggerAOS = () => {
+    if (window.AOS) {
+      try {
+        AOS.init({ duration: 700, once: true, offset: 80 });
+      } catch (e) {}
+    }
     document.querySelectorAll('[data-aos]').forEach(el => el.classList.add('aos-animate'));
+  };
+  triggerAOS();
+  window.addEventListener('load', triggerAOS);
+}
+
+/* ── ENSURE PROJECTS RENDERED ───────────────────────────────── */
+async function ensureProjectsRendered() {
+  const grid = $('projects-grid');
+  if (!grid) return;
+  const cards = grid.querySelectorAll('.project-card-wrapper');
+  if (cards.length > 0) return; // Already present in HTML
+
+  let projs = await get(API.projects);
+  if (!projs || !projs.length) {
+    projs = [
+      {
+        title: 'FaceVault AI',
+        description: 'A secure facial authentication system designed to identify and verify users through facial features. The system uses computer vision and facial recognition techniques for real-time identity verification and automated authentication, reducing dependency on traditional password-based authentication.',
+        category: 'AI / Machine Learning',
+        difficulty: 'Advanced',
+        technologies: 'Python, OpenCV, Face Recognition, Computer Vision, Machine Learning',
+        image: '/static/uploads/project/facial_recognition.png',
+        featured: 1
+      },
+      {
+        title: 'Facial Recognition System',
+        description: 'A computer vision-based facial recognition application designed to detect and identify human faces using image processing and recognition techniques.',
+        category: 'Computer Vision',
+        difficulty: 'Intermediate',
+        technologies: 'Python, OpenCV, Computer Vision',
+        image: '/static/uploads/project/facial_recognition.png',
+        featured: 1
+      },
+      {
+        title: 'Water Quality Monitoring System',
+        description: 'An Arduino-based monitoring system that uses a turbidity sensor to monitor water clarity and detect changes in water quality.',
+        category: 'Embedded Systems',
+        difficulty: 'Intermediate',
+        technologies: 'Arduino Uno, Turbidity Sensor, Embedded Systems',
+        image: '/static/uploads/project/Water-Quality-Monitoring-ESP32-780x439.jpg',
+        featured: 0
+      },
+      {
+        title: 'Vendor Cart',
+        description: 'A web-based vendor shopping/cart management application designed to provide a simple and user-friendly interface for managing products and cart operations.',
+        category: 'Web Development',
+        difficulty: 'Intermediate',
+        technologies: 'HTML, CSS, JavaScript',
+        image: '/static/uploads/project/vendor.png',
+        featured: 0
+      }
+    ];
   }
+
+  grid.innerHTML = projs.map(p => {
+    const techTags = (p.technologies || '').split(',').map(t => `<span class="tag">${esc(t.trim())}</span>`).join('');
+    const featuredBadge = p.featured ? '<span class="project-featured-badge">⭐ Featured</span>' : '';
+    const imgHtml = p.image
+      ? `<img src="${esc(p.image)}" class="project-img" alt="${esc(p.title)}" loading="lazy" />`
+      : '<div class="project-img-placeholder">🚀</div>';
+    return `
+      <div class="project-card-wrapper card" data-aos="fade-up" data-category="${esc(p.category)}" data-tech="${esc(p.technologies)}">
+        ${featuredBadge}
+        ${imgHtml}
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="tag">${esc(p.category)}</span>
+            <span class="tag">${esc(p.difficulty || 'Intermediate')}</span>
+          </div>
+          <h3 class="project-title">${esc(p.title)}</h3>
+          <p class="project-desc">${esc(p.description)}</p>
+          <div class="project-tech">${techTags}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  setupProjectFilters();
+  initAOS();
 }
 
 /* ── INIT ───────────────────────────────────────────────────── */
 (async function init() {
   initTheme();
+  await ensureProjectsRendered();
   setupProjectFilters();
   initTyped();
   initAOS();

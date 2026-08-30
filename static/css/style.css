@@ -582,7 +582,11 @@ h3 { font-size: 1.25rem; }
   padding: 0.2rem 0.6rem;
   border-radius: 50px;
 }
-.project-card-wrapper { position: relative; }
+.project-card-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
 
 /* ════════════════════════════════════════════════════════════
    CERTIFICATES SECTION
