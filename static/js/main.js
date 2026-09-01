@@ -284,6 +284,17 @@ async function ensureProjectsRendered() {
         technologies: 'HTML, CSS, JavaScript',
         image: '/static/uploads/project/vendor.png',
         featured: 0
+      },
+      {
+        title: 'Portfolio Website',
+        description: 'A responsive personal portfolio website designed to showcase my academic profile, technical skills, projects, certifications, achievements, and community contributions in a clean and modern interface.',
+        category: 'Web Development',
+        difficulty: 'Intermediate',
+        technologies: 'HTML, CSS, JavaScript, React.js',
+        image: '',
+        github_link: 'https://github.com/arunabh14307/Portfolio',
+        demo_link: '',
+        featured: 0
       }
     ];
   }
@@ -294,6 +305,11 @@ async function ensureProjectsRendered() {
     const imgHtml = p.image
       ? `<img src="${esc(p.image)}" class="project-img" alt="${esc(p.title)}" loading="lazy" />`
       : '<div class="project-img-placeholder">🚀</div>';
+    const linksHtml = (p.github_link || p.demo_link) ? `
+          <div class="project-links">
+            ${p.github_link ? `<a href="${esc(p.github_link)}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">🐱 GitHub</a>` : ''}
+            ${p.demo_link ? `<a href="${esc(p.demo_link)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">🚀 Live Demo</a>` : ''}
+          </div>` : '';
     return `
       <div class="project-card-wrapper card" data-aos="fade-up" data-category="${esc(p.category)}" data-tech="${esc(p.technologies)}">
         ${featuredBadge}
@@ -306,6 +322,7 @@ async function ensureProjectsRendered() {
           <h3 class="project-title">${esc(p.title)}</h3>
           <p class="project-desc">${esc(p.description)}</p>
           <div class="project-tech">${techTags}</div>
+          ${linksHtml}
         </div>
       </div>
     `;

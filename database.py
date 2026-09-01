@@ -239,6 +239,8 @@ def init_db():
              'Arduino Uno, Turbidity Sensor, Embedded Systems', 'Embedded Systems', 'Intermediate', '', '', '', '/static/uploads/project/Water-Quality-Monitoring-ESP32-780x439.jpg', 0),
             ('Vendor Cart', 'A web-based vendor shopping/cart management application designed to provide a simple and user-friendly interface for managing products and cart operations.',
              'HTML, CSS, JavaScript', 'Web Development', 'Intermediate', '', '', '', '/static/uploads/project/vendor.png', 0),
+            ('Portfolio Website', 'A responsive personal portfolio website designed to showcase my academic profile, technical skills, projects, certifications, achievements, and community contributions in a clean and modern interface.',
+             'HTML, CSS, JavaScript, React.js', 'Web Development', 'Intermediate', 'https://github.com/arunabh14307/Portfolio', '', '', '', 0),
         ]
         for p in sample_projects:
             c.execute('''INSERT INTO projects (title, description, technologies, category, difficulty,
