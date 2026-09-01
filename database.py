@@ -208,7 +208,7 @@ def init_db():
     skill_count = c.execute("SELECT COUNT(*) FROM skills").fetchone()[0]
     if skill_count == 0:
         sample_skills = [
-            ('C++', 3, 85, 'Programming', 'Foundational, high-performance programming language used for systems and algorithms.', '/static/uploads/skills/20260327_013759_cc.png'),
+            ('C/C++', 3, 85, 'Programming', 'Foundational, high-performance programming language used for systems and algorithms.', '/static/uploads/skills/20260327_013759_cc.png'),
             ('Python', 3, 90, 'Programming', 'Core language for AI/ML, backend scripting, and automation.', '/static/uploads/skills/20260408_101717_download_1.jpg'),
             ('JavaScript', 3, 80, 'Programming', 'Dynamic scripting language for frontend and interactive web applications.', '/static/uploads/skills/20260408_101907_JavaScript-logo.png'),
             ('HTML', 3, 90, 'Web Development', 'Semantic markup and standard web document structure.', '/static/uploads/skills/20260327_012315_html.jpg'),
