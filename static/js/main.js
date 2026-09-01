@@ -291,8 +291,8 @@ async function ensureProjectsRendered() {
         category: 'Web Development',
         difficulty: 'Intermediate',
         technologies: 'HTML, CSS, JavaScript, React.js',
-        image: '',
-        github_link: 'https://github.com/arunabh14307/Portfolio',
+        image: '/static/uploads/project/portfolio.jpg',
+        github_link: '',
         demo_link: '',
         featured: 0
       }
